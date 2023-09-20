@@ -10,6 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- checkout: self
 - task: NodeTool@0
   inputs:
     versionSpec: 'v18.18.0'
@@ -17,5 +18,6 @@ steps:
 
 - script: |
     npm install
+     workingDirectory: 'asdproject'
     npm run build
   displayName: 'npm install and build'
