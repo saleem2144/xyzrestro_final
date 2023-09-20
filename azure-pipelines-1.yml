@@ -16,8 +16,10 @@ steps:
     versionSpec: 'v18.18.0'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-     workingDirectory: 'asdproject'
-    npm run build
-  displayName: 'npm install and build'
+- script: npm install
+  workingDirectory: 'asdproject'
+  displayName: 'npm install'
+
+- script: npm run build
+  workingDirectory: 'asdproject'
+  displayName: 'npm run build'
