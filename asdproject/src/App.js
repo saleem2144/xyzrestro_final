@@ -1,13 +1,20 @@
+// App.js
+
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Admin from './Admin';
+import PaymentOptions from './PaymentOptions';
 
 function App() {
-  const [isAdminView, setAdminView] = useState(false);
+  const [view, setView] = useState('main'); // main, admin, payment
 
-  if (isAdminView) {
+  if (view === 'admin') {
     return <Admin />;
+  }
+
+  if (view === 'payment') {
+    return <PaymentOptions />;
   }
 
   return (
@@ -17,13 +24,14 @@ function App() {
         <p>Welcome to Sopranos</p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://reactjs.org/"
           target="_blank"
           rel="noopener noreferrer"
         >
-        
+          Learn React
         </a>
-        <button onClick={() => setAdminView(true)}>Go to Admin Dashboard</button>
+        <button onClick={() => setView('admin')}>Go to Admin Dashboard</button>
+        <button onClick={() => setView('payment')}>Payment Options</button>
       </header>
     </div>
   );
