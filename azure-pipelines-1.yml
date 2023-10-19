@@ -7,19 +7,40 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
 - checkout: self
+
 - task: NodeTool@0
   inputs:
-    versionSpec: 'v18.18.0'
+    versionSpec: '14.x'
   displayName: 'Install Node.js'
 
-- script: npm install
-  workingDirectory: 'asdproject'
-  displayName: 'npm install'
+# Frontend
+- script: npm ci
+  workingDirectory: 'xyzrestro_v2/frontend'
+  displayName: 'Frontend: Install dependencies'
 
 - script: npm run build
-  workingDirectory: 'asdproject'
-  displayName: 'npm run build'
+  workingDirectory: 'xyzrestro_v2/frontend'
+  displayName: 'Frontend: Build'
+
+
+- script: npm test
+  workingDirectory: 'xyzrestro_v2/frontend'
+  displayName: 'Frontend: Execute tests'
+
+# Backend
+- script: npm ci
+  workingDirectory: 'xyzrestro_v2/backend'
+  displayName: 'Backend: Install dependencies'
+
+
+- script: npm test
+  workingDirectory: 'xyzrestro_v2/backend'
+  displayName: 'Backend: Execute tests'
+
+# Deployment (Placeholder: Modify based on your deployment strategy)
+# - script: Your deployment script/command here
+#   displayName: 'Deploy to target environment'
