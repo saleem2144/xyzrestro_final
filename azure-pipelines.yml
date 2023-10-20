@@ -1,27 +1,44 @@
 trigger:
-- main
+  branches:
+    include:
+      - main  
 
-pool:
-  vmImage: 'ubuntu-latest'
+pr:
+  - '*'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+stages:
+  - stage: Frontend
+    jobs:
+      - job: BuildAndRunFrontend
+        displayName: 'Build and Run Frontend'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '14.x'
+            displayName: 'Install Node.js'
 
-- script: npm install
-  workingDirectory: 'xyzrestro_final/frontend'
-  displayName: 'Frontend: Install dependencies'
+          - script: |
+              cd frontend
+              npm install
+              npm run dev
+            displayName: 'Install and Run Frontend'
 
-- script: npm run dev
-  workingDirectory: 'xyzrestro_final/frontend' 
-  displayName: 'Frontend: Build'
+  - stage: Backend
+    jobs:
+      - job: BuildAndRunBackend
+        displayName: 'Build and Run Backend'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '14.x'
+            displayName: 'Install Node.js'
 
-- script: npm install
-  workingDirectory: 'xyzrestro_final/backend' 
-  displayName: 'Backend: Install dependencies'
-
-- script: npm run start
-  workingDirectory: 'xyzrestro_final/backend' 
-  displayName: 'Backend: Start'
+          - script: |
+              cd backend
+              npm install
+              npm run start
+            displayName: 'Install and Run Backend'
