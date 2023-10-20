@@ -22,7 +22,7 @@ stages:
           - script: |
               cd frontend
               npm install
-              npm run dev
+              npm run build
             displayName: 'Install and Run Frontend'
 
   - stage: Backend
