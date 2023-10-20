@@ -15,7 +15,18 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- script: npm install
+  workingDirectory: 'xyzrestro_final/frontend'
+  displayName: 'Frontend: Install dependencies'
+
+  - script: npm run dev
+  workingDirectory: 'xyzrestro_final/frontend' 
+  displayName: 'Frontend: Build'
+
+- script: npm install
+  workingDirectory: 'xyzrestro_final/backend' 
+  displayName: 'Backend: Install dependencies'
+
+- script: npm run start
+  workingDirectory: 'xyzrestro_final/backend' 
+  displayName: 'Backend: start'
