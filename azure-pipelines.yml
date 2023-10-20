@@ -40,5 +40,10 @@ stages:
           - script: |
               cd backend
               npm install
-              npm run build
-            displayName: 'Install and Run Backend'
+              
+              # Health check script
+              npm run start &           
+              sleep 5                   
+              curl http://localhost:3000  
+              pkill -f "node index.js"  
+            displayName: 'Health Check Backend'
