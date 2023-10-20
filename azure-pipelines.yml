@@ -22,8 +22,17 @@ stages:
           - script: |
               cd frontend
               npm install
+            displayName: 'Install Frontend Dependencies'
+
+          - script: |
+              cd frontend
+              npm run test
+            displayName: 'Run Frontend Tests'
+
+          - script: |
+              cd frontend
               npm run build
-            displayName: 'Install and Run Frontend'
+            displayName: 'Build Frontend'
 
   - stage: Backend
     jobs:
